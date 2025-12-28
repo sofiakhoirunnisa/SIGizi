@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 class="mb-3">Data Pasien</h4>
+
+{% if session.get('role') == 'admin' %}
+<a href="/tambah" class="btn btn-primary mb-3">+ Tambah Pasien</a>
+{% endif %}
+
+<table class="table table-bordered table-striped">
+    <thead class="table-primary">
+        <tr>
+            <th>Nama</th>
+            <th>Umur</th>
+            <th>Berat</th>
+            <th>Tinggi</th>
+            <th>Kalori</th>
+            <th>Status</th>
+            {% if session.get('role') == 'admin' %}
+                <th>Aksi</th>
+            {% endif %}
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for p in data %}
+        <tr>
+            <td>{{ p.nama }}</td>
+            <td>{{ p.umur }}</td>
+            <td>{{ p.berat }}</td>
+            <td>{{ p.tinggi }}</td>
+            <td>{{ p.kebutuhan_kalori }}</td>
+            <td>
+                {% if p.status == 'Normal' %}
+                    <span class="badge bg-success">Normal</span>
+                {% elif p.status == 'Kekurangan Kalori' %}
+                    <span class="badge bg-warning text-dark">Kekurangan Kalori</span>
+                {% elif p.status == 'Kelebihan Kalori' %}
+                    <span class="badge bg-danger">Kelebihan Kalori</span>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+
+            {% if session.get('role') == 'admin' %}
+            <td>
+                <a href="/edit/{{ p.id }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/hapus/{{ p.id }}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Hapus data ini?')">
+                   Hapus
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="7" class="text-center text-muted">
+                Belum ada data pasien
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h4 class="mb-3">Edit Data Pasien</h4>
+
+<form method="post">
+    <div class="mb-2">
+        <label>Nama</label>
+        <input type="text" name="nama" class="form-control" value="{{ p.nama }}" required>
+    </div>
+
+    <div class="mb-2">
+        <label>Umur</label>
+        <input type="number" name="umur" class="form-control" value="{{ p.umur }}" required>
+    </div>
+
+    <div class="mb-2">
+        <label>Berat (kg)</label>
+        <input type="number" step="0.1" name="berat" class="form-control" value="{{ p.berat }}" required>
+    </div>
+
+    <div class="mb-2">
+        <label>Tinggi (cm)</label>
+        <input type="number" step="0.1" name="tinggi" class="form-control" value="{{ p.tinggi }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Kebutuhan Kalori</label>
+        <input type="number" step="0.1" name="kalori" class="form-control" value="{{ p.kebutuhan_kalori }}" required>
+    </div>
+
+    <button class="btn btn-primary">Simpan Perubahan</button>
+    <a href="/pasien" class="btn btn-secondary">Batal</a>
+</form>
+
+{% endblock %}
