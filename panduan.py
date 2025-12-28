@@ -55,3 +55,8 @@ def get_panduan(status_bb, status_kalori):
         )
 
     return "Atur pola makan sesuai kebutuhan dan aktivitas harian."
+
+if __name__ == "__main__":
+    # contoh panggilan fungsi
+    print(get_panduan("Kurus", "Kekurangan Kalori"))
+    print(get_panduan("Berlebih", "Kelebihan Kalori"))
