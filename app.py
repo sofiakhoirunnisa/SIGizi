@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from supabase import create_client, Client
 from models import Pasien
+from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
 app.secret_key = "secret123"
@@ -31,6 +32,7 @@ def login():
 
     return render_template("login.html")
 
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -39,14 +41,19 @@ def register():
 
         role = "user"
 
-        cek = supabase.table("users").select("id").eq("username", username).execute()
+        cek = supabase.table("users") \
+            .select("id") \
+            .eq("username", username) \
+            .execute()
 
         if cek.data:
             flash("Username sudah terdaftar!", "danger")
         else:
+            password_hash = generate_password_hash(password)
+
             supabase.table("users").insert({
                 "username": username,
-                "password": password,
+                "password": password_hash,
                 "role": role
             }).execute()
 
@@ -54,6 +61,7 @@ def register():
             return redirect("/")
 
     return render_template("register.html")
+
 
 @app.route("/dashboard")
 def dashboard():
