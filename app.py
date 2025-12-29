@@ -39,9 +39,19 @@ def panduan(id):
         return redirect("/pasien")
 
     pasien_data = pasien_res.data
-    panduan_text = get_panduan(pasien_data["status"], pasien_data["status_kalori"])
 
-    return render_template("panduan.html", pasien=pasien_data, panduan=panduan_text)
+    panduan_text = get_panduan(
+        pasien_data["status"],
+        pasien_data.get("status_kalori"),
+        pasien_data.get("kebutuhan_kalori")
+    )
+
+    return render_template(
+        "panduan.html",
+        pasien=pasien_data,
+        panduan=panduan_text
+    )
+
 
 @app.route("/panduan_user")
 def panduan_user():
