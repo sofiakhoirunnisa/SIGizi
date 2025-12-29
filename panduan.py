@@ -1,4 +1,25 @@
-def get_panduan(status_bb, status_kalori):
+def hitung_status_kalori(kalori):
+    if kalori is None:
+        return "Normal"
+
+    if kalori < 1800:
+        return "Kekurangan Kalori"
+    elif 1800 <= kalori <= 2500:
+        return "Normal"
+    else:
+        return "Kelebihan Kalori"
+
+
+def get_panduan(status_bb, status_kalori, kalori=None):
+    """
+    status_bb      : Kurus | Normal | Berlebih
+    status_kalori  : bisa None
+    kalori         : opsional (dipakai jika status_kalori None)
+    """
+
+    if not status_kalori:
+        status_kalori = hitung_status_kalori(kalori)
+
     if status_bb == "Kurus" and status_kalori == "Kekurangan Kalori":
         return (
             "Makan 5–6 kali sehari, tambahkan karbohidrat kompleks "
@@ -56,7 +77,8 @@ def get_panduan(status_bb, status_kalori):
 
     return "Atur pola makan sesuai kebutuhan dan aktivitas harian."
 
+
 if __name__ == "__main__":
-    # contoh panggilan fungsi
+    print(get_panduan("Normal", None, 2100))
     print(get_panduan("Kurus", "Kekurangan Kalori"))
-    print(get_panduan("Berlebih", "Kelebihan Kalori"))
+    print(get_panduan("Berlebih", None, 2800))
