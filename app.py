@@ -71,7 +71,7 @@ def tambah():
             berat = float(request.form["berat"])
             tinggi = float(request.form["tinggi"])
             kalori = float(request.form["kalori"])
-            status = Pasien.hitung_status(berat, kalori)
+            status = Pasien.hitung_status(berat, kalori) or "aktif"
 
             data = {
                 "nama": nama,
@@ -110,7 +110,7 @@ def edit(id):
             berat = float(request.form["berat"])
             tinggi = float(request.form["tinggi"])
             kalori = float(request.form["kalori"])
-            status = Pasien.hitung_status(berat, kalori)
+            status = Pasien.hitung_status(berat, kalori) or "aktif"
 
             data = {
                 "nama": nama,
