@@ -1,36 +1,50 @@
-{% extends 'base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Pasien</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-container { max-width: 500px; margin: auto; }
+        input, label { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
+        input[type="submit"] { width: auto; background-color: #2196F3; color: white; border: none; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #0b7dda; }
+        .flash { color: red; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Data Pasien</h2>
 
-<h4 class="mb-3">Edit Data Pasien</h4>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
-<form method="post">
-    <div class="mb-2">
-        <label>Nama</label>
-        <input type="text" name="nama" class="form-control" value="{{ p.nama }}" required>
+        <form method="post">
+            <label>Nama:</label>
+            <input type="text" name="nama" value="{{ p.nama }}" required>
+
+            <label>Umur:</label>
+            <input type="number" name="umur" min="0" value="{{ p.umur }}" required>
+
+            <label>Berat (kg):</label>
+            <input type="number" name="berat" step="0.1" min="0" value="{{ p.berat }}" required>
+
+            <label>Tinggi (cm):</label>
+            <input type="number" name="tinggi" step="0.1" min="0" value="{{ p.tinggi }}" required>
+
+            <label>Kebutuhan Kalori:</label>
+            <input type="number" name="kalori" step="1" min="0" value="{{ p.kebutuhan_kalori }}" required>
+
+            <input type="submit" value="Update Pasien">
+        </form>
+        <br>
+        <a href="/pasien">Kembali ke Data Pasien</a>
     </div>
+</body>
+</html>
 
-    <div class="mb-2">
-        <label>Umur</label>
-        <input type="number" name="umur" class="form-control" value="{{ p.umur }}" required>
-    </div>
-
-    <div class="mb-2">
-        <label>Berat (kg)</label>
-        <input type="number" step="0.1" name="berat" class="form-control" value="{{ p.berat }}" required>
-    </div>
-
-    <div class="mb-2">
-        <label>Tinggi (cm)</label>
-        <input type="number" step="0.1" name="tinggi" class="form-control" value="{{ p.tinggi }}" required>
-    </div>
-
-    <div class="mb-3">
-        <label>Kebutuhan Kalori</label>
-        <input type="number" step="0.1" name="kalori" class="form-control" value="{{ p.kebutuhan_kalori }}" required>
-    </div>
-
-    <button class="btn btn-primary">Simpan Perubahan</button>
-    <a href="/pasien" class="btn btn-secondary">Batal</a>
-</form>
-
-{% endblock %}

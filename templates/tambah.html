@@ -1,56 +1,49 @@
-{% extends "base.html" %}
-{% block title %}Tambah Pasien{% endblock %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Tambah Pasien</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-container { max-width: 500px; margin: auto; }
+        input, label { display: block; width: 100%; margin-bottom: 10px; padding: 8px; }
+        input[type="submit"] { width: auto; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #45a049; }
+        .flash { color: red; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Tambah Data Pasien</h2>
 
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
-        <div class="card shadow">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Tambah Data Pasien</h5>
-            </div>
+        <form method="post">
+            <label>Nama:</label>
+            <input type="text" name="nama" required>
 
-            <div class="card-body">
-                <form method="post">
+            <label>Umur:</label>
+            <input type="number" name="umur" min="0" required>
 
-                    <div class="mb-3">
-                        <label class="form-label">Nama</label>
-                        <input type="text" name="nama" class="form-control" required>
-                    </div>
+            <label>Berat (kg):</label>
+            <input type="number" name="berat" step="0.1" min="0" required>
 
-                    <div class="mb-3">
-                        <label class="form-label">Umur</label>
-                        <input type="number" name="umur" class="form-control" required>
-                    </div>
+            <label>Tinggi (cm):</label>
+            <input type="number" name="tinggi" step="0.1" min="0" required>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Berat (kg)</label>
-                            <input type="number" step="0.1" name="berat" class="form-control" required>
-                        </div>
+            <label>Kebutuhan Kalori:</label>
+            <input type="number" name="kalori" step="1" min="0" required>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">Tinggi (cm)</label>
-                            <input type="number" step="0.1" name="tinggi" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Kebutuhan Kalori</label>
-                        <input type="number" step="0.1" name="kalori" class="form-control" required>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <a href="/pasien" class="btn btn-secondary">Kembali</a>
-                        <button type="submit" class="btn btn-success">
-                            Simpan
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-
+            <input type="submit" value="Tambah Pasien">
+        </form>
+        <br>
+        <a href="/pasien">Kembali ke Data Pasien</a>
     </div>
-</div>
-{% endblock %}
+</body>
+</html>
