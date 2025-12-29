@@ -26,6 +26,26 @@ def panduan(id):
 
     return render_template("panduan.html", pasien=pasien_data, panduan=panduan_text)
 
+@app.route("/panduan_user")
+def panduan_user():
+    if "username" not in session:
+        return redirect("/")
+
+    res = supabase.table("pasien").select("*").order("id").execute()
+    pasien_list = res.data
+
+    panduan_list = []
+    for p in pasien_list:
+        panduan_list.append({
+            "nama": p["nama"],
+            "status": p["status"],
+            "status_kalori": p["status_kalori"],
+            "panduan": get_panduan(p["status"], p["status_kalori"])
+        })
+
+    return render_template("panduan_user.html", data=panduan_list)
+
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
