@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, session, flash
 from supabase import create_client, Client
 from models import Pasien
 from werkzeug.security import generate_password_hash
+from panduan import get_panduan
 
 app = Flask(__name__)
 app.secret_key = "secret123"
