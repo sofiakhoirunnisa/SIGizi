@@ -1,4 +1,5 @@
 def get_panduan(status_bb, status_kalori):
+     print("Debug: fungsi dipanggil dengan", status_bb, status_kalori)
     if status_bb == "Kurus" and status_kalori == "Kekurangan Kalori":
         return (
             "Makan 5–6 kali sehari, tambahkan karbohidrat kompleks "
