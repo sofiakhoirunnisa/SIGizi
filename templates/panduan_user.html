@@ -3,23 +3,52 @@
 {% block title %}Panduan Gizi{% endblock %}
 
 {% block content %}
-<h3>Daftar Panduan Gizi</h3>
+<div class="container">
+    <h4 class="mb-4">📋 Daftar Panduan Gizi Pasien</h4>
 
-<div class="row">
-    {% for p in data %}
-    <div class="col-md-6 mb-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">{{ p.nama }}</h5>
-                <p>Status BB: {{ p.status }}</p>
-                <p>Status Kalori: {{ p.status_kalori }}</p>
-                <hr>
-                <p class="alert alert-info">{{ p.panduan }}</p>
+    <div class="row">
+        {% for p in data %}
+        <div class="col-md-6 mb-4">
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header bg-primary text-white">
+                    <strong>{{ p.nama }}</strong>
+                </div>
+
+                <div class="card-body">
+                    <p>
+                        <strong>Status Berat Badan:</strong>
+                        <span class="badge bg-info">{{ p.status }}</span>
+                    </p>
+
+                    <p>
+                        <strong>Status Kalori:</strong>
+                        <span class="badge bg-warning text-dark">
+                            {{ p.status_kalori }}
+                        </span>
+                    </p>
+
+                    <hr>
+
+                    <div class="alert alert-success mb-0">
+                        <strong>💡 Panduan Gizi:</strong><br>
+                        {{ p.panduan }}
+                    </div>
+                </div>
+
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
-<a href="/dashboard" class="btn btn-secondary mt-3">Kembali ke Dashboard</a>
+    {% if data|length == 0 %}
+    <div class="alert alert-warning">
+        Belum ada data panduan gizi.
+    </div>
+    {% endif %}
+
+    <a href="/dashboard" class="btn btn-secondary mt-3">
+        ← Kembali ke Dashboard
+    </a>
+</div>
 {% endblock %}
