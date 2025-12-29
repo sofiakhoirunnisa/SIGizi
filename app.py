@@ -10,6 +10,21 @@ SUPABASE_URL = "https://elgwjoamyswqfkibsqtf.supabase.co"
 SUPABASE_KEY = "sb_publishable_RK6ZPrh_-b8oyIri72QDjQ_aCFIz6mp"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+@app.route("/panduan/<int:id>")
+def panduan(id):
+    if "username" not in session:
+        return redirect("/")
+
+    pasien_res = supabase.table("pasien").select("*").eq("id", id).single().execute()
+    if not pasien_res.data:
+        flash("Pasien tidak ditemukan.", "danger")
+        return redirect("/pasien")
+
+    pasien_data = pasien_res.data
+    panduan_text = get_panduan(pasien_data["status"], pasien_data["status_kalori"])
+
+    return render_template("panduan.html", pasien=pasien_data, panduan=panduan_text)
+
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
