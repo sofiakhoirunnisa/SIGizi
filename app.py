@@ -52,7 +52,6 @@ def panduan(id):
         panduan=panduan_text
     )
 
-
 @app.route("/panduan_user")
 def panduan_user():
     if "username" not in session:
@@ -66,12 +65,15 @@ def panduan_user():
         panduan_list.append({
             "nama": p["nama"],
             "status": p["status"],
-            "status_kalori": p["status_kalori"],
-            "panduan": get_panduan(p["status"], p["status_kalori"])
+            "status_kalori": p.get("status_kalori") or "Normal",
+            "panduan": get_panduan(
+                p["status"],
+                p.get("status_kalori"),
+                p.get("kebutuhan_kalori")
+            )
         })
 
     return render_template("panduan_user.html", data=panduan_list)
-
 
 @app.route("/", methods=["GET", "POST"])
 def login():
