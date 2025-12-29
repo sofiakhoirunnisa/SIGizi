@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Panduan Gizi - {{ pasien.nama }}{% endblock %}
+
+{% block content %}
+<h3>Panduan Gizi untuk {{ pasien.nama }}</h3>
+
+<div class="card mt-3 shadow-sm" style="max-width: 600px;">
+    <div class="card-body">
+        <h5 class="card-title">{{ pasien.nama }}</h5>
+        <p class="card-text">
+            <strong>Umur:</strong> {{ pasien.umur }} tahun<br>
+            <strong>Berat:</strong> {{ pasien.berat }} kg<br>
+            <strong>Tinggi:</strong> {{ pasien.tinggi }} cm<br>
+            <strong>Status BB:</strong> {{ pasien.status }}<br>
+            <strong>Status Kalori:</strong> {{ pasien.status_kalori }}<br>
+            <strong>Kebutuhan Kalori:</strong> {{ pasien.kebutuhan_kalori }} kcal
+        </p>
+        <hr>
+        <p class="alert alert-info"><strong>Panduan Gizi:</strong> {{ panduan }}</p>
+        <a href="/pasien" class="btn btn-secondary">Kembali ke Daftar Pasien</a>
+    </div>
+</div>
+{% endblock %}
