@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Panduan Gizi{% endblock %}
+
+{% block content %}
+<h3>Daftar Panduan Gizi</h3>
+
+<div class="row">
+    {% for p in data %}
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ p.nama }}</h5>
+                <p>Status BB: {{ p.status }}</p>
+                <p>Status Kalori: {{ p.status_kalori }}</p>
+                <hr>
+                <p class="alert alert-info">{{ p.panduan }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<a href="/dashboard" class="btn btn-secondary mt-3">Kembali ke Dashboard</a>
+{% endblock %}
