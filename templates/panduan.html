@@ -3,22 +3,61 @@
 {% block title %}Panduan Gizi - {{ pasien.nama }}{% endblock %}
 
 {% block content %}
-<h3>Panduan Gizi untuk {{ pasien.nama }}</h3>
+<div class="row justify-content-center">
+    <div class="col-md-8">
 
-<div class="card mt-3 shadow-sm" style="max-width: 600px;">
-    <div class="card-body">
-        <h5 class="card-title">{{ pasien.nama }}</h5>
-        <p class="card-text">
-            <strong>Umur:</strong> {{ pasien.umur }} tahun<br>
-            <strong>Berat:</strong> {{ pasien.berat }} kg<br>
-            <strong>Tinggi:</strong> {{ pasien.tinggi }} cm<br>
-            <strong>Status BB:</strong> {{ pasien.status }}<br>
-            <strong>Status Kalori:</strong> {{ pasien.status_kalori }}<br>
-            <strong>Kebutuhan Kalori:</strong> {{ pasien.kebutuhan_kalori }} kcal
-        </p>
-        <hr>
-        <p class="alert alert-info"><strong>Panduan Gizi:</strong> {{ panduan }}</p>
-        <a href="/pasien" class="btn btn-secondary">Kembali ke Daftar Pasien</a>
+        <h4 class="mb-3">🍎 Panduan Gizi Pasien</h4>
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <strong>{{ pasien.nama }}</strong>
+            </div>
+
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="40%">Umur</th>
+                        <td>{{ pasien.umur }} tahun</td>
+                    </tr>
+                    <tr>
+                        <th>Berat Badan</th>
+                        <td>{{ pasien.berat }} kg</td>
+                    </tr>
+                    <tr>
+                        <th>Tinggi Badan</th>
+                        <td>{{ pasien.tinggi }} cm</td>
+                    </tr>
+                    <tr>
+                        <th>Status Berat Badan</th>
+                        <td>
+                            <span class="badge bg-info">{{ pasien.status }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status Kalori</th>
+                        <td>
+                            <span class="badge bg-warning text-dark">
+                                {{ pasien.status_kalori }}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Kebutuhan Kalori</th>
+                        <td>{{ pasien.kebutuhan_kalori }} kcal</td>
+                    </tr>
+                </table>
+
+                <div class="alert alert-success mt-4">
+                    <h6 class="fw-bold mb-2">💡 Rekomendasi Gizi</h6>
+                    <p class="mb-0">{{ panduan }}</p>
+                </div>
+
+                <a href="/pasien" class="btn btn-secondary mt-3">
+                    ← Kembali ke Data Pasien
+                </a>
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}
