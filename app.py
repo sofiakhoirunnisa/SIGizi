@@ -10,7 +10,6 @@ SUPABASE_URL = "https://elgwjoamyswqfkibsqtf.supabase.co"
 SUPABASE_KEY = "sb_publishable_RK6ZPrh_-b8oyIri72QDjQ_aCFIz6mp"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# =================== Login ===================
 @app.route("/", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -25,7 +24,6 @@ def login():
             flash("Login gagal! Username atau password salah.", "danger")
     return render_template("login.html")
 
-# =================== Register ===================
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
@@ -47,14 +45,12 @@ def register():
             return redirect("/")
     return render_template("register.html")
 
-# =================== Dashboard ===================
 @app.route("/dashboard")
 def dashboard():
     if "username" not in session:
         return redirect("/")
     return render_template("dashboard.html")
 
-# =================== Data Pasien ===================
 @app.route("/pasien")
 def pasien():
     if "username" not in session:
@@ -62,7 +58,6 @@ def pasien():
     res = supabase.table("pasien").select("*").order("id").execute()
     return render_template("pasien.html", data=res.data)
 
-# =================== Tambah Pasien ===================
 @app.route("/tambah", methods=["GET", "POST"])
 def tambah():
     if session.get("role") != "admin":
@@ -95,7 +90,6 @@ def tambah():
 
     return render_template("tambah.html")
 
-# =================== Edit Pasien ===================
 @app.route("/edit/<int:id>", methods=["GET", "POST"])
 def edit(id):
     if session.get("role") != "admin":
@@ -135,7 +129,6 @@ def edit(id):
 
     return render_template("edit.html", p=pasien_data)
 
-# =================== Hapus Pasien ===================
 @app.route("/hapus/<int:id>")
 def hapus(id):
     if session.get("role") != "admin":
@@ -148,12 +141,10 @@ def hapus(id):
         flash(f"Gagal menghapus pasien: {e}", "danger")
     return redirect("/pasien")
 
-# =================== Logout ===================
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect("/")
 
-# =================== Run App ===================
 if __name__ == "__main__":
     app.run(debug=True)
