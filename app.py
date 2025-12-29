@@ -11,6 +11,23 @@ SUPABASE_URL = "https://elgwjoamyswqfkibsqtf.supabase.co"
 SUPABASE_KEY = "sb_publishable_RK6ZPrh_-b8oyIri72QDjQ_aCFIz6mp"
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+def hitung_status_bb(berat, tinggi):
+    imt = berat / ((tinggi / 100) ** 2)
+    if imt < 18.5:
+        return "Kurus"
+    elif imt < 25:
+        return "Normal"
+    else:
+        return "Berlebih"
+
+def hitung_status_kalori(kalori):
+    if kalori < 2000:
+        return "Kekurangan Kalori"
+    elif kalori <= 2500:
+        return "Normal"
+    else:
+        return "Kelebihan Kalori"
+
 @app.route("/panduan/<int:id>")
 def panduan(id):
     if "username" not in session:
